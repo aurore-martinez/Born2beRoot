@@ -1,0 +1,71 @@
+Sujet :
+Pas interface graphique (pas de X.org)
+
+Choix du système d'exploitation : Debian latest stable
+	GRUB (Grand Unified Bootloader) est un programme de démarrage de système d'exploitation. C'est un chargeur de démarrage flexible et puissant utilisé principalement pour les systèmes d'exploitation Unix-like, comme Linux. Voici quelques points clés sur GRUB :
+	GRUB permet à un utilisateur de choisir parmi plusieurs systèmes d'exploitation installés sur un même ordinateur lors du démarrage.
+	Il charge et transfère le contrôle au noyau du système d'exploitation choisi, qui poursuit alors le processus de démarrage.
+	Lorsque vous installez Debian, le programme d'installation vous demandera d'installer un chargeur de démarrage. Vous choisirez GRUB, et l'installateur le configurera pour vous, en détectant automatiquement les autres systèmes d'exploitation présents et en ajoutant des entrées pour eux dans le menu de démarrage de GRUB.
+	Conclusion :
+	GRUB est un outil essentiel pour la gestion des démarrages des systèmes Unix-like et offre une grande flexibilité et compatibilité pour les configurations multi-boot. Pour votre exercice, vous installerez probablement GRUB lors de l'installation de Debian sur votre machine virtuelle, et il s'occupera du démarrage de votre système Debian une fois installé.
+	
+	Différence entre aptitude et apt :
+		Dans Debian, aptitude et apt sont deux outils de gestion de paquets.
+		Aptitude est un gestionnaire de paquets en mode texte, tandis qu'apt est une interface en ligne de commande plus récente, recommandée pour la gestion des paquets.
+		Aptitude était autrefois le gestionnaire de paquets recommandé, mais apt est devenu plus populaire pour sa simplicité et sa cohérence avec d'autres systèmes Linux.
+
+	AppArmor : AppArmor sera utilisé pour restreindre l'accès des programmes et renforcer la sécurité de votre système Debian.
+		AppArmor est un autre système de contrôle d'accès obligatoire pour Linux, similaire à SELinux mais avec une approche différente.
+		Pour Debian, AppArmor doit également rester activé. Cela signifie qu'il doit être maintenu en fonctionnement et sa configuration doit être conservée.
+		AppArmor est également disponible dans Debian et peut être activé et configuré pour fournir un contrôle d'accès obligatoire.
+		Ces mécanismes de sécurité offrent une couche supplémentaire de protection en définissant des politiques de sécurité strictes pour contrôler l'accès aux ressources système.
+		Installation d'AppArmor sur Debian :
+			Ouvrez un terminal sur votre machine virtuelle Debian.
+			Exécutez la commande suivante pour installer AppArmor :
+			sudo apt update
+			sudo apt install apparmor apparmor-utils
+		Activation d'AppArmor :
+			Une fois installé, AppArmor est généralement activé par défaut sur Debian.
+			Vous pouvez le vérifier en utilisant la commande suivante :
+			sudo apparmor_status
+			Cette commande affichera l'état actuel d'AppArmor sur votre système, y compris les profils activés et les règles en vigueur.
+		Configuration des profils AppArmor (le cas échéant) :
+			En fonction de vos besoins spécifiques, vous pouvez créer et configurer des profils AppArmor pour les programmes et les services que vous utilisez sur votre serveur Debian. La création de profils personnalisés peut aider à renforcer la sécurité en limitant les privilèges des programmes.
+		Vérification du fonctionnement :
+			Après avoir configuré AppArmor, vous pouvez effectuer des tests pour vous assurer qu'il fonctionne correctement. Cela peut inclure le démarrage et l'exécution des services avec les profils AppArmor activés, puis la vérification des journaux système pour détecter d'éventuelles violations des règles de sécurité.
+
+En comprenant ces différences et en étant capable d'expliquer leur fonctionnement et leur utilisation dans Debian, vous serez mieux préparé à répondre aux questions lors de la soutenance et à démontrer votre compréhension approfondie du système d'exploitation choisi.
+	KDump :
+		KDump est un outil de diagnostic pour Linux qui peut être utilisé pour capturer des informations sur les pannes du noyau (crash dumps) lorsqu'un système rencontre un problème grave.
+		La mise en place de KDump est souvent nécessaire pour les distributions Linux.
+
+
+Certaines différences de configuration sont nécessaires en raison des spécificités de chaque système.
+
+
+Minimum 2 partitions chiffrées
+
+hostname : aumartin42
+domain :
+password : mmemignot
+name : aumartin (username)
+password : mmemignot
+encryption passphrase : cavabien?
+utilisateur root - appartiendra aux groupes user42 et sudo
+
+Politique de mot de passe fort :
+expirer tous les 30 jours
+nombre minimum de jours avant de pouvoir modifier un mot de passe = 2.
+avertissement 7 jours avant que son mot de passe n’expire
+mot de passe : 10 caractères min dont une majuscule, une minuscule et un chiffre,
+et ne devra pas comporter plus de 3 caractères identiques
+Le mot de passe ne devra pas comporter le nom de l’utilisateur
+La règle suivante ne s’applique pas à l’utilisateur root : le mot de passe devra
+comporter au moins 7 caractères qui ne sont pas présents dans l’ancien mot de
+passe.
+Bien entendu votre mot de passe root devra suivre cette politique.
+
+Correction :
+Faire un restore snapshot après avoir été évalué pour restorer l'état
+et la bonne signature que j'ai prise juste avant la correction
+(et juste après avoir fait le-dit snapshot)

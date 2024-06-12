@@ -1,0 +1,66 @@
+1. Vérification des Partitions
+lsblk (= lister les périphériques de bloc)
+
+NAME : Le nom du périphérique ou de la partition.
+MAJ : Les numéros majeurs et mineurs du périphérique.
+RM : Indicateur de périphérique amovible (1 pour oui, 0 pour non).
+SIZE : La taille du périphérique ou de la partition.
+RO : Indicateur de lecture seule (1 pour oui, 0 pour non).
+TYPE : Le type de périphérique (disk pour un disque dur, part pour une partition, lvm pour un volume logique, etc.).
+MOUNTPOINT : Le point de montage où la partition est montée dans le système de fichiers.
+
+Options Utiles
+lsblk -f : Affiche les systèmes de fichiers des partitions.
+lsblk -l : Affiche la sortie sous forme de liste plutôt que de tableau.
+lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT : Affiche des colonnes spécifiques (nom, taille, type de système de fichiers, et point de montage).
+
+Commandes Complémentaires
+df -h : Affiche l'espace disque utilisé et disponible sur les systèmes de fichiers.
+fdisk -l : Liste les tables de partition.
+blkid : Affiche les identifiants des systèmes de fichiers et les types de systèmes de fichiers.
+
+2. Configurating Your Virtual Machine
+2.1. Installing Sudo
+
+su -
+su = (swich user) changer d'utilisateur dans un terminal.
+Sans argument, elle change pour l'utilisateur root par défaut.
+- : L'option - (ou --login) fait que l'environnement de l'utilisateur cible (ici root) est initialisé comme s'il s'agissait d'une nouvelle connexion. Cela inclut la mise à jour des variables d'environnement, le répertoire de travail et les chemins d'accès.
+=> Effectuer des configurations nécessitant des privilèges administratifs (= effectuer des modifications critiques sur le système)
+Cela peut inclure des tâches comme :
+	Création et gestion de partitions.
+	Configuration des services systèmes comme SSH, UFW (pare-feu), etc.
+	Installation et configuration de logiciels.
+
+apt-get update -y
+apt-get update : Mettre à jour la liste des paquets disponibles (apt = Advanced Package Tool) dans les dépôts logiciels configurés sur votre système Debian.
+=> votre système contacte les dépôts de logiciels configurés pour obtenir la liste actuelle des paquets disponibles.
+Cette liste est ensuite stockée localement sur votre système pour que le gestionnaire de paquets puisse l'utiliser pour les futures opérations d'installation, de mise à niveau ou de suppression de logiciels.
+Garantir la Fraîcheur des Informations : M'assure que votre système utilise les informations les plus récentes sur les paquets disponibles.
+-y : L'option -y permet d'automatiser le processus de MaJ en répondant automatiquement "oui" à toutes les questions posées par la commande.
+Cela est utile lorsque vous exécutez la commande dans un script ou lorsque vous voulez éviter les interruptions lors de la mise à jour régulière de votre système.
+
+apt-get upgrade -y
+Mettre à niveau tous les paquets installés sur votre système Debian vers leurs versions les plus récentes disponibles dans les dépôts logiciels configurés.
+=> Mise à Jour des Paquets : Lorsque de nouvelles versions de logiciels sont disponibles dans les dépôts, apt-get upgrade met à jour les paquets installés sur votre système avec ces nouvelles versions.
+Cela permet de garantir que votre système utilise les dernières fonctionnalités, correctifs de bugs et améliorations de sécurité.
+Sécurité : Les mises à jour de sécurité sont souvent incluses dans les nouvelles versions des logiciels. En exécutant régulièrement apt-get upgrade, vous vous assurez que votre système est protégé contre les vulnérabilités connues.
+Stabilité : Les mises à jour de logiciels peuvent également inclure des correctifs de bugs qui améliorent la stabilité et les performances de votre système.
+
+apt install sudo
+Installer le programme sudo sur votre système.
+sudo (abréviation de "SuperUser Do")
+=> permet à un utilisateur d'exécuter des commandes avec les privilèges d'un autre utilisateur, généralement l'utilisateur root.
+nstaller sudo est généralement une étape importante lors de la configuration d'un nouveau système Linux, car cela permet de mettre en place un système d'administration sécurisé et de limiter l'utilisation directe du compte root, ce qui peut réduire les risques de sécurité.
+
+usermod -aG sudo your_username
+usermod : commande utilisée pour modifier les attributs d'un utilisateur.
+-aG sudo : option de la commande usermod qui ajoute l'utilisateur spécifié au groupe sudo.
+-a signifie "append" (ajouter), et -G spécifie le groupe.
+your_username : C'est le nom de l'utilisateur auquel vous souhaitez accorder des privilèges d'administration avec sudo.
+=> l'utilisateur spécifié pourra utiliser sudo pour exécuter des commandes avec les privilèges d'administration. Cela permet de limiter l'utilisation directe du compte root, ce qui est généralement considéré comme une pratique plus sécurisée.
+
+Commandes Complémentaires (pour verif)
+getent group sudo : Affiche les informations du groupe sudo.
+groups your_username : Affiche les groupes auxquels appartient un utilisateur spécifique, y compris le groupe sudo s'il y est ajouté.
+
