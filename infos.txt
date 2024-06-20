@@ -8,7 +8,7 @@ Choix du système d'exploitation : Debian latest stable
 	Lorsque vous installez Debian, le programme d'installation vous demandera d'installer un chargeur de démarrage. Vous choisirez GRUB, et l'installateur le configurera pour vous, en détectant automatiquement les autres systèmes d'exploitation présents et en ajoutant des entrées pour eux dans le menu de démarrage de GRUB.
 	Conclusion :
 	GRUB est un outil essentiel pour la gestion des démarrages des systèmes Unix-like et offre une grande flexibilité et compatibilité pour les configurations multi-boot. Pour votre exercice, vous installerez probablement GRUB lors de l'installation de Debian sur votre machine virtuelle, et il s'occupera du démarrage de votre système Debian une fois installé.
-	
+
 	Différence entre aptitude et apt :
 		Dans Debian, aptitude et apt sont deux outils de gestion de paquets.
 		Aptitude est un gestionnaire de paquets en mode texte, tandis qu'apt est une interface en ligne de commande plus récente, recommandée pour la gestion des paquets.
@@ -43,15 +43,43 @@ En comprenant ces différences et en étant capable d'expliquer leur fonctionnem
 Certaines différences de configuration sont nécessaires en raison des spécificités de chaque système.
 
 
+L'installation du serveur SSH vous permet de :
+	Accéder à votre serveur à distance : Vous pouvez vous connecter à votre serveur depuis n'importe où via une connexion SSH sécurisée.
+	Administrer le serveur à distance : Exécuter des commandes, gérer des fichiers, et administrer le système sans avoir un accès physique à la machine.
+	Sécurité : SSH assure que les communications entre le client et le serveur sont chiffrées, protégeant ainsi contre l'écoute clandestine et les attaques man-in-the-middle.
+
+Sujet :
 Minimum 2 partitions chiffrées
+
+Service SSH actif sur le port 4242 uniquement.
+On ne devra pas pouvoir se connecter par SSH avec l’utilisateur root.
+
+Configurer votre système d’exploitation avec le pare-feu UFW
+et ainsi ne laisser ouvert que le port 4242
+Votre pare-feu devra être actif au lancement de votre VM
 
 hostname : aumartin42
 domain :
-password : mmemignot
-name : aumartin (username)
-password : mmemignot
+username : aumartin
+password : mmemignotMDP2024
 encryption passphrase : cavabien?
-utilisateur root - appartiendra aux groupes user42 et sudo
+
+password root :  R0otmdp2024
+
+username : mmemignot
+password : aumartinMDP2024
+
+La ligne qui suit inet dans link/ether est l'adresse IP que vous utiliserez pour les connexions réseau.
+Pour votre cas, c'est 10.0.2.15. (command ip a)
+ssh <username>@<nouvelle-adresse-ip> -p 4242
+
+a chaque demarrage :
+ip a | grep inet
+verifier ip
+connexion ssh : ssh aumartin@10.0.2.15 -p 4242
+verif service actif : sudo systemctl status ssh
+verif Port 4242 ouvert : sudo ufw status
+
 
 Politique de mot de passe fort :
 expirer tous les 30 jours
@@ -65,7 +93,12 @@ comporter au moins 7 caractères qui ne sont pas présents dans l’ancien mot d
 passe.
 Bien entendu votre mot de passe root devra suivre cette politique.
 
+Installer et configurer sudo selon une pratique stricte
+Un user sera présent avec pour nom aumartin en plus du user root.
+aumartin appartiendra aux groupes user42 et sudo.
+
 Correction :
 Faire un restore snapshot après avoir été évalué pour restorer l'état
 et la bonne signature que j'ai prise juste avant la correction
 (et juste après avoir fait le-dit snapshot)
+
