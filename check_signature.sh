@@ -2,7 +2,7 @@
 
 # Chemins des fichiers
 VDI_PATH="/home/aumartin/sgoinfre/Born2beRoot/Born2beRoot/Born2beRoot.vdi"
-SIGNATURE_FILE="/home/aumartin/Documents/Born2beRoot/signature.txt"
+SIGNATURE_FILE="/home/aumartin/sgoinfre/matle-br/signature.txt"
 
 # Générer le hash pour le fichier .vdi
 VDI_HASH=$(shasum "$VDI_PATH" | awk '{print $1}')
